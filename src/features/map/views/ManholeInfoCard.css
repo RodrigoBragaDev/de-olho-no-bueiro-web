@@ -1,0 +1,88 @@
+.manhole-card {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.08);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.manhole-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Replica o marcador visual do mobile no header do card */
+.manhole-card-icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.manhole-card-icon-halo {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 149, 0, 0.25);
+}
+
+.manhole-card-icon-core {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #FF9500;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.manhole-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.manhole-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.manhole-card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.manhole-card-field--full {
+  grid-column: 1 / -1;
+}
+
+.manhole-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+}
+
+.manhole-card-value {
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+.manhole-card-value--mono {
+  font-family: monospace;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  padding: 0.2rem 0.5rem;
+  display: inline-block;
+}
