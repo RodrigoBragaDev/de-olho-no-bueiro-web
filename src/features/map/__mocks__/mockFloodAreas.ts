@@ -30,6 +30,19 @@ export const MOCK_FLOOD_AREAS: FloodArea[] = [
       { latitude: -3.7340, longitude: -38.5010 },
     ],
   },
+  {
+    id: 'mock-003',
+    nivel: 'medio',
+    descricao: 'Alagamento moderado após chuvas da tarde. Rua parcialmente bloqueada.',
+    endereco: 'R. Costa Barros, Benfica — Fortaleza, CE',
+    dataHora: '2025-07-10T16:00:00.000Z',
+    coordinates: [
+      { latitude: -3.7450, longitude: -38.5450 },
+      { latitude: -3.7480, longitude: -38.5450 },
+      { latitude: -3.7480, longitude: -38.5480 },
+      { latitude: -3.7450, longitude: -38.5480 },
+    ],
+  },
 ];
 
 // Centro calculado para o mapa exibir as duas áreas mockadas
@@ -52,6 +65,14 @@ export const MOCK_MANHOLES: Manhole[] = [
     descricao: 'Bueiro entupido causando acúmulo de água na calçada. Tampa parcialmente deslocada.',
     endereco: 'Av. Abolição, 1540 — Meireles, Fortaleza, CE',
     dataHora: '2026-04-21T08:20:00.000Z',
+  },
+  {
+    id: 'mock-manhole-003',
+    latitude: -3.7462,
+    longitude: -38.5465,
+    descricao: 'Bueiro com tampa quebrada. Risco de acidentes durante período de chuva.',
+    endereco: 'R. General Clarindo de Queiroz, 320 — Benfica, Fortaleza, CE',
+    dataHora: '2025-11-03T14:10:00.000Z',
   },
 ];
 // ──────────────────────────────────────────────────────────────────────────────
