@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { MapContainer, TileLayer, Polygon, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Polygon, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import type { FloodArea, Manhole } from '@/features/map/models/MapTypes';
 import { NIVEL_COLORS } from '@/features/map/models/MapTypes';
@@ -11,6 +11,7 @@ interface MapViewProps {
   zoom?: number;
   floodAreas?: FloodArea[];
   manholes?: Manhole[];
+  focusLocation?: { latitude: number; longitude: number; timestamp: number } | null;
 }
 
 const DEFAULT_CENTER: [number, number] = [-23.5505, -46.6333];
@@ -51,7 +52,21 @@ function createManholeIcon() {
   });
 }
 
-export default function MapView({ center, zoom, floodAreas = [], manholes = [] }: MapViewProps) {
+function MapController({ focusLocation }: { focusLocation: MapViewProps['focusLocation'] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (focusLocation) {
+      map.flyTo([focusLocation.latitude, focusLocation.longitude], 16, {
+        duration: 1.5,
+      });
+    }
+  }, [focusLocation, map]);
+
+  return null;
+}
+
+export default function MapView({ center, zoom, floodAreas = [], manholes = [], focusLocation }: MapViewProps) {
   useEffect(() => {
     // Leaflet exige que o ícone padrão seja redefinido no Next.js para evitar ícones quebrados
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,6 +87,7 @@ export default function MapView({ center, zoom, floodAreas = [], manholes = [] }
       style={{ width: '100%', height: '100%' }}
       zoomControl
     >
+      <MapController focusLocation={focusLocation} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -5,6 +5,9 @@ import './MapItemsTable.css';
 interface MapItemsTableProps {
   floodAreas: FloodArea[];
   manholes: Manhole[];
+  onFocus: (lat: number, lng: number) => void;
+  sortConfig?: { key: string; direction: 'asc' | 'desc' };
+  onSort?: (key: string) => void;
 }
 
 type MapItem = 
@@ -21,14 +24,21 @@ function formatDate(iso: string): string {
   });
 }
 
-export default function MapItemsTable({ floodAreas, manholes }: MapItemsTableProps) {
+export default function MapItemsTable({ floodAreas, manholes, onFocus, sortConfig, onSort }: MapItemsTableProps) {
   const items: MapItem[] = [
     ...floodAreas.map(f => ({ type: 'floodArea' as const, data: f })),
     ...manholes.map(m => ({ type: 'manhole' as const, data: m })),
   ];
   
-  // order by date (newest first)
-  items.sort((a, b) => new Date(b.data.dataHora).getTime() - new Date(a.data.dataHora).getTime());
+  // order by date (newest first) - Only if no sortConfig provided
+  if (!sortConfig) {
+    items.sort((a, b) => new Date(b.data.dataHora).getTime() - new Date(a.data.dataHora).getTime());
+  }
+
+  function renderSortIcon(key: string) {
+    if (!sortConfig || sortConfig.key !== key) return <span className="sort-icon">↕</span>;
+    return <span className="sort-icon active">{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>;
+  }
 
   if (items.length === 0) {
     return null;
@@ -41,11 +51,21 @@ export default function MapItemsTable({ floodAreas, manholes }: MapItemsTablePro
         <table className="map-items-table">
           <thead>
             <tr>
-              <th>Tipo</th>
-              <th>ID</th>
-              <th>Data de criação</th>
-              <th>Endereço</th>
-              <th>Descrição</th>
+              <th onClick={() => onSort?.('type')} className="sortable-header">
+                Tipo {renderSortIcon('type')}
+              </th>
+              <th onClick={() => onSort?.('id')} className="sortable-header">
+                ID {renderSortIcon('id')}
+              </th>
+              <th onClick={() => onSort?.('dataHora')} className="sortable-header">
+                Data de criação {renderSortIcon('dataHora')}
+              </th>
+              <th onClick={() => onSort?.('endereco')} className="sortable-header">
+                Endereço {renderSortIcon('endereco')}
+              </th>
+              <th onClick={() => onSort?.('descricao')} className="sortable-header">
+                Descrição {renderSortIcon('descricao')}
+              </th>
               <th>Detalhes / Coordenadas</th>
             </tr>
           </thead>
@@ -55,7 +75,11 @@ export default function MapItemsTable({ floodAreas, manholes }: MapItemsTablePro
                 const floodArea = item.data;
                 const colors = NIVEL_COLORS[floodArea.nivel];
                 return (
-                  <tr key={`fa-${floodArea.id}`}>
+                  <tr 
+                    key={`fa-${floodArea.id}`} 
+                    className="map-items-row--clickable"
+                    onClick={() => onFocus(floodArea.coordinates[0].latitude, floodArea.coordinates[0].longitude)}
+                  >
                     <td>
                       <div className="map-items-type-column">
                         <span className="map-items-table-type">Área de Alagamento</span>
@@ -85,7 +109,11 @@ export default function MapItemsTable({ floodAreas, manholes }: MapItemsTablePro
               } else {
                 const manhole = item.data;
                 return (
-                  <tr key={`mh-${manhole.id}`}>
+                  <tr 
+                    key={`mh-${manhole.id}`}
+                    className="map-items-row--clickable"
+                    onClick={() => onFocus(manhole.latitude, manhole.longitude)}
+                  >
                     <td>
                       <div className="map-items-type-column">
                         <span className="map-items-table-type">Bueiro Danificado</span>

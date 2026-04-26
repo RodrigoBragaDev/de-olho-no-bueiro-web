@@ -44,9 +44,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    // ─── MOCK DE DESENVOLVIMENTO ──────────────────────────────────────────────
-    // TODO: remover este bloco quando o backend estiver acessível
-    const MOCK_ENABLED = true;
+    // MOCK DE DESENVOLVIMENTO: Ativo por padrão se não houver flag ou se for true.
+    // Só desativa se explicitamente definido como 'false' no .env
+    const MOCK_ENABLED = process.env.NEXT_PUBLIC_MOCK_ENABLED !== 'false';
     if (MOCK_ENABLED) {
       const mockToken = 'mock-token-dev';
       const mockUser: User = { id: '0', name: email.split('@')[0], email };
@@ -57,8 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     // ─────────────────────────────────────────────────────────────────────────
-
-    const resp = await fetch(`${API_URL}/mobile/v1/auth/login`, {
+    const resp = await fetch(`${API_URL}/api/web/v1/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

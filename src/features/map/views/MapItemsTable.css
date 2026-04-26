@@ -24,6 +24,19 @@
   font-size: var(--font-sm, 0.875rem);
 }
 
+.map-items-table tbody tr {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.map-items-row--clickable {
+  cursor: pointer;
+}
+
+.map-items-row--clickable:hover {
+  background-color: #f9fafb;
+}
+
 .map-items-table th,
 .map-items-table td {
   padding: var(--spacing-3, 0.75rem);
@@ -33,8 +46,32 @@
 
 .map-items-table th {
   background-color: var(--color-background, #f9fafb);
-  font-weight: 500;
-  color: var(--color-text-muted, #6b7280);
+  font-weight: 600;
+  color: var(--color-text-muted, #4b5563);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.sortable-header:hover {
+  background-color: #f3f4f6;
+}
+
+.sort-icon {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.3;
+}
+
+.sort-icon.active {
+  opacity: 1;
+  color: #3b82f6;
 }
 
 .map-items-table td {
