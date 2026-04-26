@@ -3,6 +3,7 @@ import './ManholeInfoCard.css';
 
 interface ManholeInfoCardProps {
   manhole: Manhole;
+  onFocus?: () => void;
 }
 
 function formatDate(iso: string): string {
@@ -15,9 +16,9 @@ function formatDate(iso: string): string {
   });
 }
 
-export default function ManholeInfoCard({ manhole }: ManholeInfoCardProps) {
+export default function ManholeInfoCard({ manhole, onFocus }: ManholeInfoCardProps) {
   return (
-    <div className="manhole-card">
+    <div className="manhole-card manhole-card--clickable" onClick={onFocus}>
       <div className="manhole-card-header">
         <div className="manhole-card-icon">
           <div className="manhole-card-icon-halo" />
