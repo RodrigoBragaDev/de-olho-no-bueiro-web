@@ -22,9 +22,10 @@ export default function MonthFilter({
 }: MonthFilterProps) {
   return (
     <div className="month-filter">
-      <div className="month-filter-field">
-        <label className="month-filter-label">Mostrar dados do mês:</label>
+      <div className="month-filter-group">
+        <label htmlFor="month-select" className="month-filter-label">Mostrar dados do mês:</label>
         <select
+          id="month-select"
           className="month-filter-select"
           value={selectedMonth}
           onChange={(e) => onMonthChange(Number(e.target.value))}
@@ -38,9 +39,10 @@ export default function MonthFilter({
         </select>
       </div>
 
-      <div className="month-filter-field">
-        <label className="month-filter-label">Ano:</label>
+      <div className="month-filter-group">
+        <label htmlFor="year-select" className="month-filter-label">Ano:</label>
         <select
+          id="year-select"
           className="month-filter-select"
           value={selectedYear}
           onChange={(e) => onYearChange(Number(e.target.value))}

@@ -1,18 +1,13 @@
 .month-filter {
-  width: 100%;
-  max-width: 1200px;
+  width: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1.5rem;
   flex-wrap: wrap;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
-  box-sizing: border-box;
 }
 
-.month-filter-field {
+.month-filter-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
