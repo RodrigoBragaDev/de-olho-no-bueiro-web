@@ -1,6 +1,5 @@
 .export-bar {
-  width: 100%;
-  max-width: 1200px;
+  width: auto;
   display: flex;
   align-items: center;
   gap: 1rem;

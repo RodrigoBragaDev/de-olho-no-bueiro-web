@@ -59,3 +59,21 @@ export function exportMonthAsJson(group: MonthGroup): void {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+export function exportDataAsJson(floodAreas: FloodArea[], manholes: Manhole[]): void {
+  const payload = {
+    exportadoEm: new Date().toISOString(),
+    alagamentos: floodAreas,
+    bueiros: manholes,
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  
+  const dateStr = new Date().toISOString().split('T')[0];
+  a.download = `donb-export-${dateStr}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
